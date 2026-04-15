@@ -1,0 +1,11 @@
+"""
+
+pygame.sprite.spritecollide() is a function in the Pygame library that checks for collisions between two sprites.
+Since the pygame sprites are rectangular (at least in this assignment), it is rather straightforward, and is very 
+useful for testing the collision of two rectangular boundaries. In this game in particular, we will use it to see if
+the rectangular boundary of the ship's bullet collides with the rectangular boundary of an alien, in order to activate
+its destruction event. In otherprojects, like a maze game, a programmer could use it to create boundaries for the edges
+ of the maze, and make something spooky happen if the player collides with it. Another example perhaps would be a simple
+pong game, where the developer could use the sprite collide function to make the ball change its rotation and direction
+when it collides with the paddle. groupcollide() is similar, except it checks for collisions between a sprite and a group of
+sprites, like a bullet firing into an array of aliens. """
