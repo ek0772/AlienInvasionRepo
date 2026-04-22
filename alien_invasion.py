@@ -10,10 +10,12 @@ Starter code: Comes from lecture demonstration and Python Crash Course, 3rd edit
 
 import pygame
 import sys
+from time import sleep
 import random
 
 from random import randint
 from pygame import event
+from game_stats import GameStats
 import settings
 from pathlib import Path
 from ship import Ship
@@ -32,11 +34,16 @@ class AlienInvasion:
         self.clock = pygame.time.Clock()
 
         pygame.display.set_caption("Alien Invasion")
+
+        self.stats = GameStats(self)
+
         self.ship= Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        self.game_active = True
 
 
         """Movement flag; start with a ship that's not moving."""
@@ -56,14 +63,14 @@ class AlienInvasion:
         if self.moving_down:
             self.rect.y += 1
 
-
-
     def run_game(self):
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+            
+            if self.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
             self._update_screen()   
             self.clock.tick(self.settings.frame_rate)
             """Make the most recently drawn screen visible."""
@@ -181,10 +188,31 @@ class AlienInvasion:
             """Start again with a new fleet."""
             self._create_fleet()
 
+    def _ship_hit(self):
+        """Respond to the ship being hit by an alien."""
+        if self.stats.ships_left > 0:
+            self.stats.ships_left -= 1
+
+            self.bullets.empty()
+            self.aliens.empty()
+
+            self._create_fleet()
+            self.ship.center_ship()
+
+            sleep(0.5)
+        else:
+            self.game_active = False
+
     def _update_aliens(self):
         """Update the position of aliens in the fleet."""
         self._check_fleet_edges()
         self.aliens.update()
+
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+        
+        self._check_aliens_bottom()
+
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
@@ -196,7 +224,12 @@ class AlienInvasion:
 
         pygame.display.flip()
 
-
+    def _check_aliens_bottom(self):
+        """Check if any aliens have reached the bottom of the screen."""
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.settings.screen_height:
+                self._ship_hit()
+                break
 
 if __name__ == '__main__':
     ai = AlienInvasion()
