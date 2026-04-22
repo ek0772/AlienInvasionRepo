@@ -1,0 +1,17 @@
+"""
+In Chapter 14, you will note that in the code example for the Button class, the author has included a triple-quoted strings for
+the class, and functions. In fact, in most of the code provided in the book, triple-quoted strings have been provided for modules,
+methods, functions and classes. Discuss how these docstrings help programmers with their workflow. Remember your experience and
+the internet are your friends.
+
+
+
+Docstrings are a LIFESAVER. Genuinely the most helpful part in understanding and interpreting code with the human mind.
+ A simple line of text explaining the function of the code beneath it, helps to make sense of complex code syntax. Sometimes 
+ I have absolutely no idea what certain code means, especially when theres an imported function, such as pygame, keeping track 
+ of what different pieces do can be confusing. Structuring and refactoring code so that it is in easy to understand chunks can
+help, but sometimes that line of text makes all the difference, and when Im writing code myself, leaving docstring notes can 
+be a lifesaver. In my code of this week, for example, I have a doctoring I wrote in between when the bullets get deleted at 
+the end, and a new fleet spawns. The note here is “win message implemented here”, as a note for me for future development, so
+ that I know where the perfect spot to display a “YOU WON” screen. 
+"""
