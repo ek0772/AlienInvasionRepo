@@ -10,12 +10,15 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        self.bullet_image = pygame.image.load('AlienInvasionRepo/Assets/images/Bullet.png')
+        self.bullet_image = pygame.image.load('Assets/images/YellowBullet.png')
 
         """Create a bullet rect at (0, 0) and then set correct position."""
         self.rect = pygame.Rect(-10, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop,
-        self.rect.x -= 15
+
+
+        """Bullet Positioning."""
+        self.rect.x -= 31
         
 
         """Store the bullet's position as a float."""
