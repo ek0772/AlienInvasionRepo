@@ -1,0 +1,13 @@
+Colormaps are used extensively with scientific data. How are these applied when 
+visualizing measurable phenomenon like temperatures or rainfall? Reference your textbook 
+or the internet. Cite examples that you find interesting.
+
+Colormaps are heavily utilized in the digital space, as they are often the bridge between 
+colorless objects and their shading. A colormap uses points to navigate and project 
+colors onto certain areas. For exampple, in my 3D modeling course, 2d images filled with 
+colors called UV textures are used, and are projected onto a 2d image that stores all the 
+geometric data for the shapes being colored. A cube for example, would have a UV map of 6 
+squares, usually attached for ease of use, and the texture would be a colored overlay 
+that projects those colors onto those squares when plugged in in the 3d software. 
+
+According to https://matplotlib.org/stable/users/explain/colors/colormaps.html, colormaps in python are similar in that they contain gradients that help the processor to interpret and attach colors based on certain numerical values, so its a much more technical method than a visual image being plugged in like a map.
