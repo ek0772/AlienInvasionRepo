@@ -1,22 +1,34 @@
 Custom assets used: 
+
 Spaceship (Custom made asset in weeks 1&2, imported heart asset in week 3)
 https://www.spriters-resource.com/pc_computer/deltarune/asset/188839/
 
 Bullet (Custom in 1&2, imported heart shot asset in week 3)
 https://www.spriters-resource.com/pc_computer/deltarune/asset/188839/
 
-
 Alien (Weeks 1&2: Fallout 4 Nate head, custom photoshop cutout. Week 3: Blue Spamton head from deltarune)
 https://www.pixilart.com/art/that-one-flying-head-d7f466edce44?ft=album&ft_id=229753
 
+Gif custom gif art
+https://www.reddit.com/r/Deltarune/comments/qef0xb/some_spamton_sprites_i_made_for_fun_i_like_how/
+
+https://img1.picmix.com/output/stamp/thumb/1/7/1/5/2075171_6b9eb.gif
 
 Background (Custom made asset in weeks 1&2, imported asset in week 3)
 https://www.reddit.com/r/Deltarune/comments/u8xy8i/i_recreated_the_spamton_fight_background_in_the/
 
+Inactive Screen (Custom made)
+Visual asset pieces imported from DELTARUNE game.
+https://archive.org/details/deltarune-chapter-2-ost
 
-
+Font:
+Custom font VT323 imported from google fonts
+https://fonts.google.com/specimen/VT323?preview.script=Latn
 
 Audio:
-All custom audio is imported from DELTARUNE game, credit to toby fox.
+All custom audio is imported from DELTARUNE game, credit to toby Fox.
 https://sounds.spriters-resource.com/pc_computer/deltarune/asset/456411/
 
+Music:
+Custom music is imported from DELTARUNE game, credit to Toby Fox
+https://archive.org/download/deltarune-chapter-2-ost

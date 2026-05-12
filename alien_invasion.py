@@ -17,6 +17,7 @@ import random
 """NEEEDS "pip install gif-pygame" TO WORK """
 import gif_pygame
 
+import settings
 
 from random import randint
 from pygame import event
@@ -24,11 +25,11 @@ from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
 from audio import Audio
-import settings
 from pathlib import Path
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -39,21 +40,23 @@ class AlienInvasion:
         """Call audio class to load sound effects."""
         self.audio = Audio()
         
-        """Load Background Music"""
-        pygame.mixer.music.load('Assets/sound/SpamtonTheme.mp3')
         
 
         #Start Alien Invasion in an inactive state,
         self.game_active = False
+        pygame.mixer.music.stop()
         
         self.settings = settings.settings()
 
         self.screen = pygame.display.set_mode((self.settings.screen_height, self.settings.screen_width))
         
-        self.play_button = Button(self, "Play")
+        self.play_button = Button(self, "TRANSFER")
 
-        
-       
+        """Create Gif object for Spammy."""
+        self.spammy_gif = gif_pygame.load('Assets/images/Spammy.gif')
+
+        """Create crazy spammy gif"""
+        self.crazy_spammy_gif = gif_pygame.load('Assets/images/Crazylaugh.gif')
         self.clock = pygame.time.Clock()
 
         pygame.display.set_caption("Alien Invasion")
@@ -64,7 +67,12 @@ class AlienInvasion:
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
 
+        """Create player area"""
+        self._create_player_area()
+
         self.ship= Ship(self)
+
+
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
@@ -102,6 +110,21 @@ class AlienInvasion:
             self.clock.tick(self.settings.frame_rate)
             """Make the most recently drawn screen visible."""
 
+    def _create_player_area(self):
+        """Create the player area."""
+        self.player_area = pygame.Rect(400, self.settings.screen_width - 400, self.settings.screen_height-800, 400)
+        """Exact numbers for player area are: (400, 800, 400, 400)"""
+        # self.player_area= pygame.Rect(400, 800, 400, 400)
+
+        # Black background for player area
+        pygame.draw.rect(self.screen, (0,0,0), self.player_area)
+
+        # Green border for player area
+        pygame.draw.rect(self.screen, (0,255,0), self.player_area, 4)
+
+
+
+
     def _create_fleet(self):
         """Create the fleet of aliens."""
         alien= Alien(self)
@@ -110,7 +133,7 @@ class AlienInvasion:
         current_x, current_y = alien_width, alien_height
         while current_y < (400):
             while current_x < (self.settings.screen_width + 280):
-                random_x = randint(0, self.settings.screen_width+280)
+                random_x = randint(0, self.settings.screen_width-100)
                 self._create_alien(random_x, current_y)
                 current_x += 2 * alien_width
                 
@@ -160,12 +183,14 @@ class AlienInvasion:
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
             # Reset the game settings.
+            
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.sb.prep_score()
             self.sb.prep_level()
             self.sb.prep_ships()
             self.game_active = True
+            
 
             # Get rid of any remaining bullets and aliens.
             self.bullets.empty()
@@ -179,6 +204,8 @@ class AlienInvasion:
             pygame.mouse.set_visible(False)
 
             # Play background music.
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('Assets/sound/SpamtonTheme.mp3')
             pygame.mixer.music.play(-1)
 
 
@@ -253,7 +280,7 @@ class AlienInvasion:
             self.settings.increase_speed()
 
             # Increase level.
-            self.stats.level += 3
+            self.stats.level += 1
             self.sb.prep_level()
 
     def _ship_hit(self):
@@ -273,8 +300,15 @@ class AlienInvasion:
             sleep(0.5)
         else:
             pygame.mouse.set_visible(True)
-            pygame.mixer.music.stop()
+            
+
+
+            
             self.game_active = False
+
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('Assets/sound/Inactive.mp3')
+            pygame.mixer.music.play(-1)
 
     def _update_aliens(self):
         """Update the position of aliens in the fleet."""
@@ -290,6 +324,12 @@ class AlienInvasion:
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.blit(self.settings.background, (0,0))
+        
+        #draw player area
+        pygame.draw.rect(self.screen, (0,0,0), self.player_area)
+        pygame.draw.rect(self.screen, (0,255,0), self.player_area, 4)
+
+
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
@@ -298,9 +338,47 @@ class AlienInvasion:
         #draw the score information
         self.sb.show_score()
 
+        
+        if self.stats.score > 0:
+            self.crazy_spammy_gif.render(self.screen, (800, 380))
+            self.crazy_spammy_gif.render(self.screen, (-20, 380))
+
+        if self.stats.score > 25000:
+            """Random spammy gif generator"""
+            random_x = randint(0, self.settings.screen_height)
+            random_y = randint(0, self.settings.screen_width)
+            numberspawned=1
+            for i in range(numberspawned):
+                self.spammy_gif.render(self.screen, (random_x, random_y))
+                random_x = randint(0, self.settings.screen_height)
+                random_y = randint(0, self.settings.screen_width)
+        
+        
+        if self.stats.score > 75000:
+            """Random spammy gif generator"""
+            random_x = randint(0, self.settings.screen_height)
+            random_y = randint(0, self.settings.screen_width)
+            numberspawned=10
+            for i in range(numberspawned):
+                self.spammy_gif.render(self.screen, (random_x, random_y))
+                random_x = randint(0, self.settings.screen_height)
+                random_y = randint(0, self.settings.screen_width)
+                self.audio.laugh_sound.play()
+
+        if self.stats.score > 1200000:
+            self.screen.blit(self.settings.jumpy_image, (0,0))
+            self.audio.snore_sound.play()
+
+            
         # Draw the play button if the game is inactive.
+
         if not self.game_active:
+            
+            if self.stats.ships_left == 0:
+                self.screen.blit(self.settings.ending_background, (0,0))
+
             self.play_button.draw_button()
+
 
         pygame.display.flip()
 

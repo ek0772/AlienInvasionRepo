@@ -1,5 +1,7 @@
 import pygame
+import gif_pygame
 from pygame.sprite import Sprite
+
 
 class Alien(Sprite):
 
@@ -8,6 +10,8 @@ class Alien(Sprite):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
 
+        """Create crazy spammy gif"""
+        
         self.image = pygame.image.load('Assets/images/SpamtonSprite.png')
         self.rect = self.image.get_rect()
 

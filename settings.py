@@ -8,6 +8,8 @@ class settings:
         self.screen_height = 1200
         self.frame_rate = 60
         self.background = pygame.image.load('Assets/images/SpamtonBackground.png')
+        self.ending_background = pygame.image.load('Assets/images/Ending.png')
+        self.jumpy_image = pygame.image.load('Assets/images/Jumpy.png')
 
         """Ship settings."""
         self.ship_speed = 8
@@ -24,10 +26,10 @@ class settings:
         self.fleet_drop_speed = 5
 
         # "How quickly the game speeds up."
-        self.speedup_scale = 1.5
+        self.speedup_scale = 1.25
 
         # "How quickly the alien point values increase."
-        self.score_scale = 1.5
+        self.score_scale = 2
 
         self.initialize_dynamic_settings()
 
@@ -35,7 +37,7 @@ class settings:
         """Initialize settings that change throughout the game."""
         self.ship_speed = 5.5
         self.bullet_speed = 5.5
-        self.alien_speed = 1.5
+        self.alien_speed = 2
 
         # fleet_direction of 1 represents right; -1 represents left.
         self.fleet_direction = 1
@@ -51,9 +53,9 @@ class settings:
 
     def increase_speed(self):
         """Increase speed settings."""
-        self.ship_speed *= self.speedup_scale
-        self.bullet_speed *= self.speedup_scale
-        self.alien_speed *= self.speedup_scale
+        self.ship_speed += 0.5
+        self.bullet_speed *= 1
+        self.alien_speed *= 1.5 
 
         self.alien_points = int(self.alien_points * self.score_scale)
         print(self.alien_points)
